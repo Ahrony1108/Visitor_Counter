@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reload Counter</title>
+
+    <style>
+        body{
+            margin:0;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#f4f4f4;
+            font-family:Arial, sans-serif;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            text-align:center;
+        }
+
+        h1{
+            color:#333;
+        }
+
+        .counter{
+            font-size:60px;
+            font-weight:bold;
+            color:#007bff;
+            margin:20px 0;
+        }
+
+        button{
+            padding:10px 20px;
+            border:none;
+            background:red;
+            color:white;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            opacity:0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Website Reload Counter</h1>
+    <div class="counter" id="counter">0</div>
+    <button onclick="resetCounter()">Reset Counter</button>
+</div>
+
+<script>
+    let count = localStorage.getItem("reloadCount");
+
+    if(count === null){
+        count = 0;
+    }
+
+    count++;
+    localStorage.setItem("reloadCount", count);
+
+    document.getElementById("counter").innerText = count;
+
+    function resetCounter(){
+        localStorage.setItem("reloadCount", 0);
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
