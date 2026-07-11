@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Build Output
+dist/
+
+# Environment Files
+.env
+.env.*
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache/
+coverage/
