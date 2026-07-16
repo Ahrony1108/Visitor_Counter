@@ -1,0 +1,69 @@
+pipeline {
+
+    agent any
+
+        tools {
+        nodejs 'MyNode'
+    }
+
+    environment {
+        DEPLOY_PATH="/var/www/counterapp"
+    }
+ 
+    stages {
+
+        stage('Checkout Source Code') {
+            steps {
+                git branch: 'master',
+                url: 'https://github.com/Ahrony1108/Professional_Login_Page.git'
+            }
+        }
+
+        stage('Verify Workspace') {
+            steps {
+                sh '''
+                echo "Current Directory"
+                pwd
+
+                echo "Project Files"
+                ls -la
+                '''
+            }
+        }
+
+        stage('Deploy Website') {
+            steps {
+                sh """
+                sudo mkdir -p ${DEPLOY_PATH}
+
+                sudo rm -rf ${DEPLOY_PATH}/*
+
+                sudo cp -r * ${DEPLOY_PATH}/
+                """
+            }
+        }
+
+        stage('Reload Nginx') {
+            steps {
+                sh 'sudo systemctl reload nginx'
+            }
+        }
+    }
+
+    post {
+
+        success {
+
+            echo 'Application Deployed Successfully.'
+
+        }
+
+        failure {
+
+            echo 'Pipeline Failed.'
+
+        }
+
+    }
+
+}
